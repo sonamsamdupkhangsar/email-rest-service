@@ -35,4 +35,24 @@ public class EmailRestServiceIntegTest {
                     "welcome", "This is a welcome message.")))
             .exchange().expectStatus().isOk();
   }
+
+  @Test
+  public void invalidEmailAddress() {
+    LOG.info("sending email");
+    client.post().uri("/email").
+            body(BodyInserters.fromValue(new Email("fromsonam.cloud", "to@sonam.cloud",
+                    "welcome", "This is a welcome message.")))
+            .exchange().expectStatus().isBadRequest();
+
+    client.post().uri("/email").
+            body(BodyInserters.fromValue(new Email("from@sonam.cloud", "tosonam.cloud",
+                    "welcome", "This is a welcome message.")))
+            .exchange().expectStatus().isBadRequest();
+
+    client.post().uri("/email").
+            body(BodyInserters.fromValue(new Email("fromsonam.cloud", "tosonam.cloud",
+                    "welcome", "This is a welcome message.")))
+            .exchange().expectStatus().isBadRequest();
+
+  }
 }

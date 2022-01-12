@@ -6,8 +6,12 @@ This is a reactive Java webservice api.
 
 ## Run locally
 
-`mvn spring-boot:run`
-
+`mvn spring-boot:run -Dspring-boot.run.arguments="--EMAIL_HOST=b<HOST> \
+ --EMAIL_PORT=<PORT> \
+ --EMAIL_USERNAME=<USERNAME> \
+ --EMAIL_PASSWORD=<PASSWORD>"`
+ 
+ 
 ## Build Docker image
 
 Build docker image using included Dockerfile.

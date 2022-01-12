@@ -17,17 +17,17 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail(Email email) {
+
+    public void sendEmail(String from, String to, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
 
-        msg.setTo(email.getTo());
-        msg.setFrom(email.getFrom());
+        msg.setTo(to);
+        msg.setFrom(from);
 
-        msg.setSubject(email.getSubject());
-        msg.setText(email.getBody());
+        msg.setSubject(subject);
+        msg.setText(body);
 
         javaMailSender.send(msg);
         LOG.info("email sent");
     }
-
 }

@@ -77,15 +77,6 @@ tolerations: []
 
 affinity: {}
 
-envs:
-  - name: EMAIL_HOST
-    value: ""
-  - name: EMAIL_PORT
-    value: ""
-  - name: EMAIL_USERNAME
-    value: ""
-  - name: EMAIL_PASSWORD
-    value: ""
 
 health:
   liveness:

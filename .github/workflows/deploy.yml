@@ -44,10 +44,10 @@ jobs:
             --set "image.repository=${{ secrets.IMAGEREGISTRY }}/$PROJECT_NAME" \
             --set "image.tag=1" \
             --set "project=$PROJECT_NAME" \
-            --set "env.EMAIL_HOST=${{ secrets.EMAIL_HOST }}" \
-            --set "env.EMAIL_PORT=${{ secrets.EMAIL_PORT }}" \
-            --set "env.EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" \
-            --set "env.EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" \
+            --set "envs[0].name=EMAIL_HOST" --set "envs[0].value=${{ secrets.EMAIL_HOST }}" \
+            --set "envs[1].name=EMAIL_PORT" --set "envs[1].value=${{ secrets.EMAIL_PORT }}" \
+            --set "envs[2].name=EMAIL_USERNAME" --set "envs[2].value=${{ secrets.EMAIL_USERNAME }}" \
+            --set "envs[3].name=EMAIL_PASSWORD" --set "envs[3].value=${{ secrets.EMAIL_PASSWORD }}" \
              $PROJECT_NAME \
             sonam/mychart -f values-backend.yaml --version 0.1.13 --namespace=backend
 

@@ -29,14 +29,19 @@ Build docker image using included Dockerfile.
  -e EMAIL_USERNAME=<EMAIL> -e EMAIL_PASSWORD=<PASSWORD> \
  --publish 8080:8080 imageregistry/email-rest-service:1.0`
 
-Test email api using `curl`:
+Test email api locally using `curl`:
 
 ````
  curl -X POST http://localhost:8080/email -H 'Content-Type: application/json' \
  -d '{"from": "from@my.email", "to": "to@my.email", \
   "subject":"hello", "body": "welcome to planet Earth"}'
  ```` 
-
+Test email on host using `curl`:
+```
+curl https://email-rest-service.sonam.cloud/email -H "Authorization: Bearer $JWT" \
+  -H "Content-Type: application/json" -X POST \
+ -d '{"from": "from@my.email", "to": "to@my.email", "subject":"hello", "body": "welcome to planet Earth"}'
+  ```
 ## Installation on Kubernetes
 Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
 

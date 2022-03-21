@@ -46,11 +46,11 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Log in to my container registery
-        run: docker login ${{ secrets.IMAGEREGISTRY }} -u ${{ secrets.IMAGEREGISTRY_USERNAME }} -p ${{ secrets.IMAGEREGISTRY_PASSWORD }}
+#      - name: Log in to my container registery
+#        run: docker login ${{ secrets.IMAGEREGISTRY }} -u ${{ secrets.IMAGEREGISTRY_USERNAME }} -p ${{ secrets.IMAGEREGISTRY_PASSWORD }}
 
-      - name: Push image to my container registry
-        run:  docker push ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest
+#      - name: Push image to my container registry
+#        run:  docker push ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.K8CLUSTER_NAME }}
@@ -58,9 +58,10 @@ jobs:
       - name: Deploy to k8 cluster
         run: |
           export PROJECT_NAME=$(echo ${{ github.repository }} | cut -d / -f2)
+          helm delete $PROJECT_NAME
           helm repo add sonam https://sonamsamdupkhangsar.github.io/sonam-helm-chart/
           helm upgrade --install --timeout 5m0s \
-            --set "image.repository=${{ secrets.IMAGEREGISTRY }}/$PROJECT_NAME" \
+            --set "image.repository=ghcr.io/sonamsamdupkhangsar/$PROJECT_NAME" \
             --set "image.tag=latest" \
             --set "project=$PROJECT_NAME" \
             --set "envs[0].name=EMAIL_HOST" --set "envs[0].value=${{ secrets.EMAIL_HOST }}" \

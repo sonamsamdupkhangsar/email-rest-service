@@ -47,3 +47,9 @@ Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/son
 
 ```helm install emailapi sonam/mychart -f values.yaml --version 0.1.11 --namespace=backend```
 
+### Pact verification
+This will publish a Pact contract for the jwt-rest-service validate method to pactbroker
+`mvn pact:publish`
+`mvn clean install pact:publish`
+
+Consumer pact will be published during docker build instruction.

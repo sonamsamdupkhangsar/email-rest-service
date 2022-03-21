@@ -14,13 +14,30 @@ jobs:
         run: export PROJECT_NAME=$(echo ${{ github.repository }} | cut -d / -f2); echo $PROJECT_NAME
 
       - name: Checkout main
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Update SHA
-        run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/shafile.txt
+      - name: Setup Open JDK 16
+        uses: actions/setup-java@v2
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+
+      - name: Build with Maven
+        run: mvn --settings settings.xml clean install
+
+      - name: Deploy Maven artifact to Github registry
+        run:  mvn deploy -Dpersonal_access_token=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Pacts
+      - name:
+             mvn pact:publish \
+             -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} \
+             -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} \
+             -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}
 
       - name: Build container image
-        run: docker build -t ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):1 .
+        run: docker build -t ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest .
+        #     echo ${{ GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -31,7 +48,7 @@ jobs:
         run: docker login ${{ secrets.IMAGEREGISTRY }} -u ${{ secrets.IMAGEREGISTRY_USERNAME }} -p ${{ secrets.IMAGEREGISTRY_PASSWORD }}
 
       - name: Push image to my container registry
-        run:  docker push ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):1
+        run:  docker push ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.K8CLUSTER_NAME }}
@@ -42,7 +59,7 @@ jobs:
           helm repo add sonam https://sonamsamdupkhangsar.github.io/sonam-helm-chart/
           helm upgrade --install --timeout 5m0s \
             --set "image.repository=${{ secrets.IMAGEREGISTRY }}/$PROJECT_NAME" \
-            --set "image.tag=1" \
+            --set "image.tag=latest" \
             --set "project=$PROJECT_NAME" \
             --set "envs[0].name=EMAIL_HOST" --set "envs[0].value=${{ secrets.EMAIL_HOST }}" \
             --set "envs[1].name=EMAIL_PORT" --set "envs[1].value=${{ secrets.EMAIL_PORT }}" \

@@ -29,10 +29,7 @@ jobs:
         run:  mvn --settings settings.xml deploy -Dpersonal_access_token=${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Pacts
-        run: mvn --settings settings.xml pact:publish \
-             -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} \
-             -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} \
-             -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}
+        run: mvn --settings settings.xml pact:publish -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}
 
       - name: Build container image
         run: docker build -t ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest .

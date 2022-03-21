@@ -36,7 +36,7 @@ jobs:
         #run: docker build -t ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest .
 
       - name: Login to Github Registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+        run: echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
 
       - name: Push Docker image to github registry
         run: docker push ghcr.io/sonamsamdupkhangsar/email-rest-service:latest

@@ -77,7 +77,6 @@ tolerations: []
 
 affinity: {}
 
-
 health:
   liveness:
     path: /api/health/liveness

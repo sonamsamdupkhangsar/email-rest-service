@@ -32,7 +32,8 @@ jobs:
         run: mvn --settings settings.xml pact:publish -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}
 
       - name: Build container image
-        run: docker build -t ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest .
+        run: docker build -t ghcr.io/sonamsamdupkhangsar/$(echo ${{ github.repository }} | cut -d / -f2):latest .
+        #run: docker build -t ${{ secrets.IMAGEREGISTRY }}/$(echo ${{ github.repository }} | cut -d / -f2):latest .
 
       - name: Login to Github Registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin

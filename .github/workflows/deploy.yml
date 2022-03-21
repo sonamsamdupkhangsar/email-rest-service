@@ -26,10 +26,10 @@ jobs:
         run: mvn --settings settings.xml clean install
 
       - name: Deploy Maven artifact to Github registry
-        run:  mvn deploy -Dpersonal_access_token=${{ secrets.GITHUB_TOKEN }}
+        run:  mvn --settings settings.xml deploy -Dpersonal_access_token=${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Pacts
-        run: mvn pact:publish \
+        run: mvn --settings settings.xml pact:publish \
              -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} \
              -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} \
              -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}

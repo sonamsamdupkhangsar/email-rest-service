@@ -45,7 +45,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
+#          tags: ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
 

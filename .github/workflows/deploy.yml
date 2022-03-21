@@ -29,7 +29,7 @@ jobs:
         run:  mvn deploy -Dpersonal_access_token=${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Pacts
-      - name:
+      - run:
              mvn pact:publish \
              -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} \
              -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} \

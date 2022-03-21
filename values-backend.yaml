@@ -8,7 +8,7 @@ image:
   pullPolicy: Always
 
 imagePullSecrets:
-  - name: regcred
+  - name: github-regcred
 nameOverride: ""
 fullnameOverride: ""
 
@@ -44,9 +44,8 @@ istio:
 ingress:
   enabled: true
   ingressClass: nginx
-  #annotations:
-    #cert-manager.io/issuer: letsencrypt-nginx
-
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: http://jwt-rest-service-mychart.backend.svc.cluster.local:80/validate
   hosts:
     - host: email-rest-service.sonam.cloud
       paths:
@@ -77,16 +76,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-envs:
-  - name: EMAIL_HOST
-    value: ""
-  - name: EMAIL_PORT
-    value: ""
-  - name: EMAIL_USERNAME
-    value: ""
-  - name: EMAIL_PASSWORD
-    value: ""
 
 health:
   liveness:

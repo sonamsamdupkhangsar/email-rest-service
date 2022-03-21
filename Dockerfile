@@ -9,7 +9,7 @@ RUN ["mvn", "clean", "install"]
 
 FROM openjdk:16
 WORKDIR /app
-COPY --from=build /app/target/email-rest-service-1.0-SNAPSHOT.jar /app/email-rest-service.jar
+COPY --from=build /app/target/email-rest-service-3.0-SNAPSHOT.jar /app/email-rest-service.jar
 EXPOSE 8080
 
 LABEL org.opencontainers.image.source https://github.com/sonamsamdupkhangsar/email-rest-service

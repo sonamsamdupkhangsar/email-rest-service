@@ -49,8 +49,8 @@ jobs:
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Print my docker imageid in a separate step
+        run: echo "imageid:: ${{ steps.docker_build.outputs.imageid }}"
 
 #      - name: Build container image
 #        run: docker build -t ghcr.io/sonamsamdupkhangsar/$(echo ${{ github.repository }} | cut -d / -f2):latest .

@@ -51,7 +51,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-#          context: .
+          context: .
           push: true
           tags: ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
           secrets: |
@@ -63,7 +63,6 @@ jobs:
           export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
           echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
           echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
 
 #      - name: Build container image
 #        run: docker build -t ghcr.io/sonamsamdupkhangsar/$(echo ${{ github.repository }} | cut -d / -f2):latest .
@@ -92,7 +91,7 @@ jobs:
           helm repo add sonam https://sonamsamdupkhangsar.github.io/sonam-helm-chart/
           helm upgrade --install --timeout 5m0s \
             --set "image.repository=ghcr.io/sonamsamdupkhangsar/$PROJECT_NAME" \
-            --set "image.tag=$TAG" \
+            --set "image.tag=latest" \
             --set "project=$PROJECT_NAME" \
             --set "envs[0].name=EMAIL_HOST" --set "envs[0].value=${{ secrets.EMAIL_HOST }}" \
             --set "envs[1].name=EMAIL_PORT" --set "envs[1].value=${{ secrets.EMAIL_PORT }}" \
@@ -100,14 +99,3 @@ jobs:
             --set "envs[3].name=EMAIL_PASSWORD" --set "envs[3].value=${{ secrets.EMAIL_PASSWORD }}" \
              $PROJECT_NAME \
             sonam/mychart -f values-backend.yaml --version 0.1.13 --namespace=backend
-
-  build-testing:
-    name: Build, push, and deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print my docker imageid in a separate step
-        run: |
-          echo "imageid ${{ steps.docker_build.outputs.digest }}"
-          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
-          echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
-          echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}

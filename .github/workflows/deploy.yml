@@ -83,9 +83,9 @@ jobs:
 
       - name: Deploy to k8 cluster
         run: |
-          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
+          export IMAGE_ID=(${{ steps.docker_build.outputs.digest }})
           echo  $IMAGE_ID
-          export TAG = "latest@$IMAGE_ID"
+          export TAG = "latest@(${{ steps.docker_build.outputs.digest }})"
           echo $TAG
           export PROJECT_NAME=$(echo ${{ github.repository }} | cut -d / -f2)
           helm repo add sonam https://sonamsamdupkhangsar.github.io/sonam-helm-chart/

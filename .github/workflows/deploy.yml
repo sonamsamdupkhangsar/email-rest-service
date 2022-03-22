@@ -49,8 +49,9 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
+          context: .
           push: true
           tags: ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
           secrets: |
@@ -82,7 +83,7 @@ jobs:
           helm repo add sonam https://sonamsamdupkhangsar.github.io/sonam-helm-chart/
           helm upgrade --install --timeout 5m0s \
             --set "image.repository=ghcr.io/sonamsamdupkhangsar/$PROJECT_NAME" \
-            --set "image.tag=latest" \
+            --set "image.tag=latest@${{ steps.docker_build.outputs.imageid }}" \
             --set "project=$PROJECT_NAME" \
             --set "envs[0].name=EMAIL_HOST" --set "envs[0].value=${{ secrets.EMAIL_HOST }}" \
             --set "envs[1].name=EMAIL_PORT" --set "envs[1].value=${{ secrets.EMAIL_PORT }}" \

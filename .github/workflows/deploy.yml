@@ -58,7 +58,11 @@ jobs:
             GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Print my docker imageid in a separate step
-        run: echo "imageid ${{ steps.docker_build.outputs.imageid }} ${{ steps.docker_build.outputs.digest }} ${{ steps.docker_build.outputs.metadata }}"
+        run: |
+          echo "imageid ${{ steps.docker_build.outputs.imageid }}"
+          export IMAGE_ID=${{ steps.docker_build.outputs.imageid }}
+          echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
+
 
 #      - name: Build container image
 #        run: docker build -t ghcr.io/sonamsamdupkhangsar/$(echo ${{ github.repository }} | cut -d / -f2):latest .
@@ -79,7 +83,7 @@ jobs:
 
       - name: Deploy to k8 cluster
         run: |
-          export IMAGE_ID = ${{ steps.docker_build.outputs.imageid }}
+
           echo "imageId: $IMAGE_ID"
           export TAG = "latest@"$IMAGE_ID
           echo "TAG: $TAG"

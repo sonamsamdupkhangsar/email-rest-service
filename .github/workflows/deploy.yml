@@ -41,12 +41,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -56,22 +50,6 @@ jobs:
           tags: ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-      - name: Print my docker imageid in a separate step
-        run: |
-          echo "imageid ${{ steps.docker_build.outputs.digest }}"
-          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
-          echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
-          echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-#      - name: Build container image
-#        run: docker build -t ghcr.io/sonamsamdupkhangsar/$(echo ${{ github.repository }} | cut -d / -f2):latest .
-
-#      - name: Login to Github Registry
-#        run: echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
-
-#      - name: Push Docker image to github registry
-#        run: docker push ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -83,10 +61,7 @@ jobs:
 
       - name: Deploy to k8 cluster
         run: |
-          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
-          echo  $IMAGE_ID
           export TAG="latest@${{ steps.docker_build.outputs.digest }}"
-          echo $TAG
           export PROJECT_NAME=$(echo ${{ github.repository }} | cut -d / -f2)
           helm repo add sonam https://sonamsamdupkhangsar.github.io/sonam-helm-chart/
           helm upgrade --install --timeout 5m0s \

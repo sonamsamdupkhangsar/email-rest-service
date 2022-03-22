@@ -50,7 +50,7 @@ jobs:
             GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Print my docker imageid in a separate step
-        run: echo "imageid ${{ steps.docker_build.outputs.imageid }} ${{ steps.docker_build }} ${{ steps.docker_build.outputs.digest }} ${{ steps.docker_build.outputs.metadata }}"
+        run: echo "imageid ${{ docker_build.outputs.imageid }} ${{ outputs.imageid }} ${{ steps.docker_build.outputs.digest }} ${{ steps.docker_build.outputs.metadata }}"
 
 #      - name: Build container image
 #        run: docker build -t ghcr.io/sonamsamdupkhangsar/$(echo ${{ github.repository }} | cut -d / -f2):latest .

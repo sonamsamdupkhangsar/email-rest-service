@@ -51,7 +51,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
+#          context: .
           push: true
           tags: ghcr.io/sonamsamdupkhangsar/email-rest-service:latest
           secrets: |
@@ -62,6 +62,7 @@ jobs:
           echo "imageid ${{ steps.docker_build.outputs.digest }}"
           export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
           echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
+          echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 
 #      - name: Build container image
@@ -99,3 +100,14 @@ jobs:
             --set "envs[3].name=EMAIL_PASSWORD" --set "envs[3].value=${{ secrets.EMAIL_PASSWORD }}" \
              $PROJECT_NAME \
             sonam/mychart -f values-backend.yaml --version 0.1.13 --namespace=backend
+
+  build-testing:
+    name: Build, push, and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print my docker imageid in a separate step
+        run: |
+          echo "imageid ${{ steps.docker_build.outputs.digest }}"
+          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
+          echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
+          echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}

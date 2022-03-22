@@ -59,8 +59,8 @@ jobs:
 
       - name: Print my docker imageid in a separate step
         run: |
-          echo "imageid ${{ steps.docker_build.outputs.imageid }}"
-          export IMAGE_ID=${{ steps.docker_build.outputs.imageid }}
+          echo "imageid ${{ steps.docker_build.outputs.digest }}"
+          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
           echo "IMAGE_ID: $IMAGE_ID, ".$IMAGE_ID
 
 
@@ -83,7 +83,7 @@ jobs:
 
       - name: Deploy to k8 cluster
         run: |
-
+          export IMAGE_ID=${{ steps.docker_build.outputs.digest }}
           echo "imageId: $IMAGE_ID"
           export TAG = "latest@"$IMAGE_ID
           echo "TAG: $TAG"

@@ -22,17 +22,13 @@ jobs:
           java-version: '16'
           distribution: 'adopt'
 
-      - name: Build with Maven
-        run: mvn --settings settings.xml clean install
-
-      - name: Deploy Maven artifact to Github registry
-        run:  mvn --settings settings.xml deploy -Dpersonal_access_token=${{ secrets.GITHUB_TOKEN }}
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Pacts
-        run: mvn --settings settings.xml pact:publish -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}
-
-      - name: Run project name
-        run: echo $PROJECT_NAME
+        run: mvn pact:publish -Dpactbrokerurl=${{ secrets.PACTBROKER_URL }} -Dpactbrokerusername=${{ secrets.PACTBROKER_USERNAME }} -Dpactbrokerpassword=${{ secrets.PACTBROKER_PASSWORD }}
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -41,7 +37,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Build and push
+      - name: Build Docker image and push to ghcr.io registry
         id: docker_build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:

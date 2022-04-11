@@ -50,7 +50,7 @@ ingress:
   hosts:
     - host: email-rest-service.sonam.cloud
       paths:
-        - path: /
+        - path: /services
           pathType: Prefix
   tls:
     - secretName: sonam.cloud

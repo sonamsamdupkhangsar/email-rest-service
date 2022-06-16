@@ -3,7 +3,6 @@
 This is a Email Rest Service api built using Spring WebFlux. 
 This is a reactive Java webservice api.
 
-
 ## Run locally
 
 `mvn spring-boot:run -Dspring-boot.run.arguments="--EMAIL_HOST=<HOST> \

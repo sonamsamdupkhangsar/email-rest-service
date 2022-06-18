@@ -84,7 +84,7 @@
                 <artifactId>pact-jvm-provider-maven</artifactId>
                 <version>4.0.0</version>
                 <configuration>
-                    <pactDirectory>src/test/resources/consumer/pacts</pactDirectory>
+                    <pactDirectory>target/pacts</pactDirectory>
                     <pactBrokerUrl>${pactbrokerurl}</pactBrokerUrl>
                     <pactBrokerUsername>${pactbrokerusername}</pactBrokerUsername>
                     <pactBrokerPassword>${pactbrokerpassword}</pactBrokerPassword>

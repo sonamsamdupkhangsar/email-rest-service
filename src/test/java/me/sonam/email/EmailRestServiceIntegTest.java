@@ -33,7 +33,9 @@ public class EmailRestServiceIntegTest {
     client.post().uri("/email").
             body(BodyInserters.fromValue(new Email("from@sonam.cloud", "to@sonam.cloud",
                     "welcome", "This is a welcome message.")))
-            .exchange().expectStatus().isCreated();
+            .exchange().expectStatus().isCreated().returnResult(String.class).consumeWith(stringFluxExchangeResult -> {
+              LOG.info("result: {}", stringFluxExchangeResult.getResponseBody());
+    });
   }
 
   @Test

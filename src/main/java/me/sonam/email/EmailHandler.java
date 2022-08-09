@@ -30,9 +30,11 @@ public class EmailHandler {
     public Mono<ServerResponse> email(ServerRequest serverRequest) {
         LOG.info("send email");
         return serverRequest.bodyToMono(Email.class)
-                .doOnNext(email -> email.validate())
-                .doOnNext(email -> emailService.sendEmail(email.getFrom(), email.getTo(),
-                        email.getSubject(), email.getBody()))
+                .doOnNext(email -> {LOG.info("email validate"); email.validate();})
+                .doOnNext(email -> {
+                    LOG.info("send email with service");
+                emailService.sendEmail(email.getFrom(), email.getTo(),
+                        email.getSubject(), email.getBody());})
                 .flatMap(body -> ServerResponse.created(URI.create("/email")).contentType(MediaType.APPLICATION_JSON).build())
                 .onErrorResume(e ->  ServerResponse.badRequest().body(BodyInserters.fromValue(e.getMessage())));
     }

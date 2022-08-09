@@ -1,5 +1,7 @@
 package me.sonam.email;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,7 @@ import java.net.URI;
  */
 @Component
 public class EmailHandler {
-
+    private static final Logger LOG = LoggerFactory.getLogger(EmailHandler.class);
     @Autowired
     private EmailService emailService;
 
@@ -26,6 +28,7 @@ public class EmailHandler {
      * @return
      */
     public Mono<ServerResponse> email(ServerRequest serverRequest) {
+        LOG.info("send email");
         return serverRequest.bodyToMono(Email.class)
                 .doOnNext(email -> email.validate())
                 .doOnNext(email -> emailService.sendEmail(email.getFrom(), email.getTo(),

@@ -18,7 +18,7 @@ public class EmailService {
     private JavaMailSender javaMailSender;
 
     public void sendEmail(String from, String to, String subject, String body) {
-        LOG.info("send email with javaMailSender: from: {},\n to: {},\n subject: {}, body: {}"
+        LOG.info("send email with javaMailSender: from: {},\n to: {},\n subject: {}, body: {}",
         from, to, subject, body);
         SimpleMailMessage msg = new SimpleMailMessage();
 

@@ -44,7 +44,7 @@ public class EmailHandler {
     }
 
     public Mono<ServerResponse> emailWithResponse(ServerRequest serverRequest) {
-        LOG.info("send email");
+        LOG.info("send emailWithResponse");
 
 
         return serverRequest.bodyToMono(Email.class)

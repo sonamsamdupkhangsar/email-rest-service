@@ -10,8 +10,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
-
 /**
  * EmailHandler class to delegate business processing to {@link EmailService}
  */
@@ -37,7 +35,7 @@ public class EmailHandler {
                         email.getSubject(), email.getBody());})
                 .flatMap(body -> {
                     LOG.info("creating uri for post");
-                 return   ServerResponse.created(URI.create("/email")).contentType(MediaType.APPLICATION_JSON).build();
+                 return   ServerResponse.ok()/*created(URI.create("/email"))*/.contentType(MediaType.APPLICATION_JSON).build();
                 })
                 .onErrorResume(e -> {
                     LOG.info("error occured: {}", e);

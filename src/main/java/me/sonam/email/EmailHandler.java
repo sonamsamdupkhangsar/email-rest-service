@@ -35,7 +35,13 @@ public class EmailHandler {
                     LOG.info("send email with service");
                 emailService.sendEmail(email.getFrom(), email.getTo(),
                         email.getSubject(), email.getBody());})
-                .flatMap(body -> ServerResponse.created(URI.create("/email")).contentType(MediaType.APPLICATION_JSON).build())
-                .onErrorResume(e ->  ServerResponse.badRequest().body(BodyInserters.fromValue(e.getMessage())));
+                .flatMap(body -> {
+                    LOG.info("creating uri for post");
+                 return   ServerResponse.created(URI.create("/email")).contentType(MediaType.APPLICATION_JSON).build();
+                })
+                .onErrorResume(e -> {
+                    LOG.info("error occured: {}", e);
+                    return ServerResponse.badRequest().body(BodyInserters.fromValue(e.getMessage()));
+                });
     }
 }

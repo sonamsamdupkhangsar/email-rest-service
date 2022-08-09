@@ -42,4 +42,24 @@ public class EmailHandler {
                     return ServerResponse.badRequest().body(BodyInserters.fromValue(e.getMessage()));
                 });
     }
+
+    public Mono<ServerResponse> emailWithResponse(ServerRequest serverRequest) {
+        LOG.info("send email");
+
+
+        return serverRequest.bodyToMono(Email.class)
+                .doOnNext(email -> {LOG.info("email validate"); email.validate();})
+                .doOnNext(email -> {
+                    LOG.info("send email with service");
+                    emailService.sendEmail(email.getFrom(), email.getTo(),
+                            email.getSubject(), email.getBody());})
+                .flatMap(body -> {
+                    LOG.info("creating uri for post");
+                    return   ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue("email sent");
+                })
+                .onErrorResume(e -> {
+                    LOG.info("error occured: {}", e);
+                    return ServerResponse.badRequest().body(BodyInserters.fromValue(e.getMessage()));
+                });
+    }
 }

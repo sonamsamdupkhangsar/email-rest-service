@@ -44,6 +44,8 @@ public class EmailRouter {
         return RouterFunctions.route(POST("/internal/email").and(accept(MediaType.APPLICATION_JSON)),
                 emailHandler::email)
                 .andRoute(POST("/email").and(accept(MediaType.APPLICATION_JSON)),
-                        emailHandler::email);
+                        emailHandler::email)
+                .andRoute(POST("/emailresponse").and(accept(MediaType.APPLICATION_JSON)),
+                        emailHandler::emailWithResponse);
     }
 }

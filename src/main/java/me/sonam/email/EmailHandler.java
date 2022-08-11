@@ -40,7 +40,7 @@ public class EmailHandler {
                     LOG.info("returning response");
                  return   ServerResponse.created(URI.create("/email"))
                          .contentType(MediaType.APPLICATION_JSON).
-                                 body(BodyInserters.fromValue(email));
+                                 body(BodyInserters.fromValue("email sent"));
                 })
                 .onErrorResume(e -> {
                     LOG.info("error occured: {}", e);

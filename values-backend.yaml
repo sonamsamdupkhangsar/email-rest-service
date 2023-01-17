@@ -76,7 +76,7 @@ tolerations: []
 affinity: {}
 
 envs:
-  - name: JWT_REST_SERVICE
+  - name: jwt-rest-service-public-key-id
     value: http://jwt-rest-service-mychart.backend.svc.cluster.local:80/jwts/publickeys/{keyId}
 
 health:

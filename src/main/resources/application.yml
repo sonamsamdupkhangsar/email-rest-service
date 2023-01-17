@@ -39,4 +39,4 @@ eureka:
     serviceUrl:
       defaultZone: https://${EUREKA_USER}:${EUREKA_PASSWORD}@discovery-service.sonam.cloud/eureka
 
-jwt-rest-service-public-key-id: ${JWT_REST_SERVICE}
+#jwt-rest-service-public-key-id: ${JWT_REST_SERVICE}

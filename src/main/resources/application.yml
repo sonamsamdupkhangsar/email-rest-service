@@ -40,3 +40,7 @@ eureka:
       defaultZone: https://${EUREKA_USER}:${EUREKA_PASSWORD}@discovery-service.sonam.cloud/eureka
 
 jwt-rest-service-public-key-id: ${JWT_REST_SERVICE}
+
+me.sonam.jwt-validator:
+  permitpath:
+    - path: /api/health/*

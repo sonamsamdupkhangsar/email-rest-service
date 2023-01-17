@@ -70,5 +70,7 @@ jobs:
             --set "secretenvs[1].name=EMAIL_PORT" --set "secretenvs[1].value=${{ secrets.EMAIL_PORT }}" \
             --set "secretenvs[2].name=EMAIL_USERNAME" --set "secretenvs[2].value=${{ secrets.EMAIL_USERNAME }}" \
             --set "secretenvs[3].name=EMAIL_PASSWORD" --set "secretenvs[3].value=${{ secrets.EMAIL_PASSWORD }}" \
+            --set "secretenvs[4].name=EUREKA_USER" --set "secretenvs[4].value=${{ secrets.EUREKA_USER }}" \
+            --set "secretenvs[5].name=EUREKA_PASSWORD" --set "secretenvs[5].value=${{ secrets.EUREKA_PASSWORD }}" \
              $PROJECT_NAME \
             sonam/mychart -f values-backend.yaml --version 0.1.21 --namespace=backend

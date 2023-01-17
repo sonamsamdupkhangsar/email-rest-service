@@ -66,9 +66,9 @@ jobs:
             --set "image.repository=ghcr.io/sonamsamdupkhangsar/$PROJECT_NAME" \
             --set "image.tag=latest" \
             --set "project=$PROJECT_NAME" \
-            --set "envs[0].name=EMAIL_HOST" --set "envs[0].value=${{ secrets.EMAIL_HOST }}" \
-            --set "envs[1].name=EMAIL_PORT" --set "envs[1].value=${{ secrets.EMAIL_PORT }}" \
-            --set "envs[2].name=EMAIL_USERNAME" --set "envs[2].value=${{ secrets.EMAIL_USERNAME }}" \
-            --set "envs[3].name=EMAIL_PASSWORD" --set "envs[3].value=${{ secrets.EMAIL_PASSWORD }}" \
+            --set "secretenvs[0].name=EMAIL_HOST" --set "secretenvs[0].value=${{ secrets.EMAIL_HOST }}" \
+            --set "secretenvs[1].name=EMAIL_PORT" --set "secretenvs[1].value=${{ secrets.EMAIL_PORT }}" \
+            --set "secretenvs[2].name=EMAIL_USERNAME" --set "secretenvs[2].value=${{ secrets.EMAIL_USERNAME }}" \
+            --set "secretenvs[3].name=EMAIL_PASSWORD" --set "secretenvs[3].value=${{ secrets.EMAIL_PASSWORD }}" \
              $PROJECT_NAME \
             sonam/mychart -f values-backend.yaml --version 0.1.21 --namespace=backend

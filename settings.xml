@@ -15,7 +15,7 @@
                 </repository>
                 <repository>
                     <id>github</id>
-                    <url>https://maven.pkg.github.com/OWNER/REPOSITORY</url>
+                    <url>https://maven.pkg.github.com/sonamsamdupkhangsar/jwt-validator</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
@@ -28,7 +28,7 @@
         <server>
             <id>github</id>
             <username>sonamsamdupkhangsar</username>
-            <password>${personal_access_token}</password>
+            <password>${PERSONAL_ACCESS_TOKEN}</password>
         </server>
     </servers>
 </settings>

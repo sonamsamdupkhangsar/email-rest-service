@@ -5,6 +5,16 @@ This is a reactive Java webservice api.
 
 ## Run locally
 
+## Run locally using profile
+Use the following to run local profile which will pick up properties defined in the `application-local.yml` :
+
+
+```
+mvn spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=local"
+```
+
+Or you can do something like following too:
+
 `mvn spring-boot:run -Dspring-boot.run.arguments="--EMAIL_HOST=<HOST> \
  --EMAIL_PORT=<PORT> \
  --EMAIL_USERNAME=<USERNAME> \

@@ -1,0 +1,9 @@
+# This yaml file is for local dev profile
+server:
+  port: 8085
+
+eureka:
+  client:
+    enabled: false
+
+JWT_REST_SERVICE: http://localhost:8081/jwts/publickeys/{keyId}

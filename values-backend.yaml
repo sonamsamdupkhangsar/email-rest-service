@@ -43,7 +43,7 @@ istio:
   enabled: false
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClass: nginx
   annotations:
     nginx.ingress.kubernetes.io/auth-url: http://jwt-rest-service-mychart.backend.svc.cluster.local:80/validate
@@ -75,16 +75,20 @@ tolerations: []
 
 affinity: {}
 
+envs:
+  - name: JWT_REST_SERVICE
+    value: http://jwt-rest-service-mychart.backend.svc.cluster.local:80/jwts/publickeys/{keyId}
+
 health:
   liveness:
     path: /api/health/liveness
     port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 5
   readiness:
     path: /api/health/readiness
     port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 5

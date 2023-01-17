@@ -30,3 +30,8 @@ spring:
           writetimeout: 5000
           starttls:
             enable: true
+
+
+eureka:
+  client:
+    enabled: false

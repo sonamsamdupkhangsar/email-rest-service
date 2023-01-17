@@ -33,3 +33,8 @@ spring:
           writetimeout: 5000
           starttls:
             enable: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: https://${EUREKA_USER}:${EUREKA_PASSWORD}@discovery-service.sonam.cloud/eureka

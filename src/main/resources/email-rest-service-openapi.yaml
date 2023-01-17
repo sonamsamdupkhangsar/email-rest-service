@@ -5,6 +5,7 @@ info:
 
 security:
   - bearerAuth: []
+
 servers:
   - url: http://localhost:8085
     description: local dev server

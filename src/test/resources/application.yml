@@ -35,3 +35,10 @@ spring:
 eureka:
   client:
     enabled: false
+
+
+me.sonam.jwt-validator:
+  permitpath:
+    - path: /api/health/*
+
+jwt-rest-service-public-key-id: http://localhost:{port}/jwts/publickeys/{keyId}

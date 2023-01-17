@@ -5,3 +5,5 @@ server:
 eureka:
   client:
     enabled: false
+
+jwt-rest-service-public-key-id: http://localhost:8081/jwts/publickeys/{keyId}

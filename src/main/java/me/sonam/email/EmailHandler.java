@@ -1,17 +1,14 @@
 package me.sonam.email;
 
-import com.sun.tools.javac.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,23 +22,6 @@ public class EmailHandler {
     @Autowired
     private EmailService emailService;
 
-    @Value("${EMAIL_HOST}")
-    private String emailHost;
-
-    @Value("${EMAIL_PORT}")
-    private int emailPort;
-
-    @Value("${EMAIL_USERNAME}")
-    private String emailUserName;
-
-    @Value("${EMAIL_PASSWORD}")
-    private String emailPassword;
-
-    @PostConstruct
-    public void log() {
-        LOG.info("emailHost: {}, emailPort: {}, emailUserName: {}, emailPassword: {}",
-                emailHost, emailPort, emailUserName, emailPassword);
-    }
     /**
      * Send email
      * if exception occurs throws a bad request with exception message
@@ -62,23 +42,33 @@ public class EmailHandler {
                     LOG.info("returng success message");
                  return   ServerResponse.created(URI.create("/emails"))
                          .contentType(MediaType.APPLICATION_JSON).
-                                 bodyValue(getMap(Pair.of("message", "email successfully sent")));
+                                 bodyValue(getMap(new Pair("message", "email successfully sent")));
                 })
                 .onErrorResume(e -> {
                     LOG.info("failed to send email", e);
                     return ServerResponse.badRequest().contentType(MediaType.APPLICATION_JSON)
-                            .bodyValue(getMap(Pair.of("error", "failed to send email")));
+                            .bodyValue(getMap(new Pair("error", "failed to send email")));
                 });
     }
 
-    private Map<String, String> getMap(Pair<String, String>... pairs){
+    private Map<String, String> getMap(Pair... pairs){
 
         Map<String, String> map = new HashMap<>();
 
-        for(Pair<String, String> pair: pairs) {
-            map.put(pair.fst, pair.snd);
+        for(Pair pair: pairs) {
+            map.put(pair.key, pair.value);
         }
         return map;
 
+    }
+
+    class Pair {
+        public String key;
+        public String value;
+
+        public Pair(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 }

@@ -41,6 +41,6 @@ eureka:
 
 jwt-rest-service-public-key-id: ${JWT_REST_SERVICE}
 
-me.sonam.jwt-validator:
-  permitpath:
-    - path: /api/health/*
+
+permitpath:
+  - path: /api/health/*

@@ -21,13 +21,15 @@ public class EmailWithRemoteEndpoint {
     // port-forward email-rest-service to localhost:8082
     private final String emailEndpoint = "http://localhost:8083/email";
 
+    /**
+     * this test is for a live remote endpoint.
+     */
     @Test
     public void signup() {
         LOG.info("email using port-forwarded endpoint");
         final String id = UUID.randomUUID().toString().replace("-", "");
 
-
-        webTestClient.mutate().responseTimeout(Duration.ofSeconds(30)).build();
+       webTestClient.mutate().responseTimeout(Duration.ofSeconds(30)).build();
 
         webTestClient.post().uri(emailEndpoint).
                 body(BodyInserters.fromValue(new Email("kecha@sonam.email", "me@sonam.email",
@@ -52,14 +54,7 @@ public class EmailWithRemoteEndpoint {
                     LOG.info("activation email response is: {}", s);
                     return Mono.just(s);
                 });
-/*
-         spec.bodyToMono(String.class).flatMap(s -> {
-            LOG.info("activation email response is: {}", s);
-            return Mono.just(s);
-        })
-                 .onErrorResume(throwable ->{
-            LOG.error("error occured", throwable);
-         return    Mono.error(new RuntimeException("Email activation failed: "+ throwable.getMessage()));
-        }).subscribe(s -> LOG.info("response: {}", s));*/
     }
+
+
 }

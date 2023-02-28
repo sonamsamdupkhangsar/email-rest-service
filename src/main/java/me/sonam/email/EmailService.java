@@ -17,16 +17,6 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-/*
-    @Value("${JWT_REST_SERVICE}")
-    private String jwtRestService;
-
-    @PostConstruct
-    public void log() {
-        LOG.info("jwtRestService: {}", jwtRestService);
-    }
-*/
-
     public void sendEmail(String from, String to, String subject, String body) {
         LOG.info("send email with javaMailSender: from: {},\n to: {},\n subject: {}, body: {}",
         from, to, subject, body);

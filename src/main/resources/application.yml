@@ -19,6 +19,8 @@ server:
 trustOrigin: http://localhost:8080
 
 spring:
+  application:
+    name: email-rest-service
   mail:
     host: ${EMAIL_HOST}
     port: ${EMAIL_PORT}
@@ -40,7 +42,6 @@ eureka:
       defaultZone: https://${EUREKA_USER}:${EUREKA_PASSWORD}@discovery-service.sonam.cloud/eureka
 
 jwt-rest-service-public-key-id: ${JWT_REST_SERVICE}
-
 
 permitpath:
   - path: /api/health/*

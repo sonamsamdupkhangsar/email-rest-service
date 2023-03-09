@@ -102,11 +102,11 @@ secretFiles:
         name: EUREKA_PASSWORD
   - file: email-rest-service
     keys:
-      - key: EMAIL_HOST
+      - key: host
         name: EMAIL_HOST
-      - key: EMAIL_PORT
+      - key: port
         name: EMAIL_PORT
-      - key: EMAIL_USERNAME
+      - key: username
         name: EMAIL_USERNAME
-      - key: EMAIL_PASSWORD
+      - key: password
         name: EMAIL_PASSWORD

@@ -77,7 +77,7 @@ affinity: {}
 
 envs:
   - name: JWT_REST_SERVICE
-    value: http://jwt-rest-service-mychart.backend.svc.cluster.local:80/jwts/publickeys/{keyId}
+    value: http://jwt-rest-service-mychart.backend.svc.cluster.local:80
 
 health:
   liveness:

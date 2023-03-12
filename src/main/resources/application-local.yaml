@@ -6,4 +6,4 @@ eureka:
   client:
     enabled: false
 
-JWT_REST_SERVICE: http://localhost:8081/jwts/publickeys/{keyId}
+JWT_REST_SERVICE: http://localhost:8081

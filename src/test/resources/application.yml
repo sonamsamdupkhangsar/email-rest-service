@@ -31,14 +31,13 @@ spring:
           starttls:
             enable: true
 
-
 eureka:
   client:
     enabled: false
 
-
-
 permitpath:
   - path: /api/health/*
 
-jwt-rest-service-public-key-id: http://localhost:{port}/jwts/publickeys/{keyId}
+jwt-service:
+  root: http://localhost:${server.port}
+  public-key-id: /jwts/publickeys/{keyId}

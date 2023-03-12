@@ -12,6 +12,9 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 import java.util.UUID;
 
+/**
+ * this is for connecting to remote endpoint.  This will fail when run as a test if no port-forwarding is done.
+ */
 public class EmailWithRemoteEndpoint {
     private static final Logger LOG = LoggerFactory.getLogger(EmailWithRemoteEndpoint.class);
 
@@ -19,12 +22,12 @@ public class EmailWithRemoteEndpoint {
     private  WebClient webClient = WebClient.builder().build();
 
     // port-forward email-rest-service to localhost:8082
-    private final String emailEndpoint = "http://localhost:8083/email";
+    private final String emailEndpoint = "http://localhost:8083/emails";
 
     /**
      * this test is for a live remote endpoint.
      */
-    @Test
+   // @Test
     public void signup() {
         LOG.info("email using port-forwarded endpoint");
         final String id = UUID.randomUUID().toString().replace("-", "");

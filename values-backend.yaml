@@ -76,8 +76,12 @@ tolerations: []
 affinity: {}
 
 envs:
+  - name: EUREKA_HOST
+    value: discovery-service.sonam.cloud
   - name: JWT_REST_SERVICE
     value: http://jwt-rest-service-mychart.backend.svc.cluster.local:80
+  - name: DEFAULT_ZONE
+    value: https://${EUREKA_USER}:${EUREKA_PASSWORD}@${EUREKA_HOST}/eureka
 
 health:
   liveness:

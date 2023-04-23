@@ -21,6 +21,7 @@ trustOrigin: http://localhost:8080
 
 spring:
   mail:
+    username: test@sonam.email #just for test to pass
     properties:
       mail:
         smtp:

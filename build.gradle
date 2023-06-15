@@ -101,6 +101,6 @@ pact {
         pactBrokerUrl = System.getenv('pactbrokerurl')
         pactBrokerUsername = System.getenv('pactbrokerusername')
         pactBrokerPassword = System.getenv('pactbrokerpassword')
-        pactDirectory = 'build/pacts'
+        //pactDirectory = 'build/pacts'
     }
 }

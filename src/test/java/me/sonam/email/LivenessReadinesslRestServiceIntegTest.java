@@ -39,4 +39,10 @@ public class LivenessReadinesslRestServiceIntegTest {
     client.get().uri("/api/health/liveness")
             .exchange().expectStatus().isOk();
   }
+
+  @Test
+  public void emails() {
+    LOG.info("should fail when accessing emails path");
+    client.post().uri("/emails").exchange().expectStatus().isUnauthorized();
+  }
 }

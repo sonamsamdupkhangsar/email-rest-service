@@ -4,7 +4,7 @@ import lombok.extern.java.Log;
 import me.sonam.Application;
 import me.sonam.MockConfig;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;

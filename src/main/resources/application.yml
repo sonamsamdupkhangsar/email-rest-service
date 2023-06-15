@@ -35,15 +35,25 @@ spring:
           writetimeout: 5000
           starttls:
             enable: true
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9001
 eureka:
   client:
     serviceUrl:
       defaultZone: ${DEFAULT_ZONE}
 
-jwt-service:
-  root: ${JWT_REST_SERVICE}
-  public-key-id: /jwts/publickeys/{keyId}
-
 permitpath:
   - path: /api/health/*
+  - path: /emails
+    scopes: message.write
+
+
+# this is used for getting accesstoken by header filter in jwt-validator (ReactiveRequestContextHolder.class)
+auth-server:
+  root: http://localhost:9001
+  oauth2token:
+    path: /oauth2/token
+    params: ?grant_type=client_credentials

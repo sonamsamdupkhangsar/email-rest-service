@@ -20,6 +20,8 @@ server:
 trustOrigin: http://localhost:8080
 
 spring:
+  profiles:
+    active: localdevtest
   mail:
     username: test@sonam.email #just for test to pass
     properties:
@@ -31,7 +33,11 @@ spring:
           writetimeout: 5000
           starttls:
             enable: true
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9001
 eureka:
   client:
     enabled: false
@@ -39,6 +45,8 @@ eureka:
 permitpath:
   - path: /api/health/*
 
-jwt-service:
-  root: http://localhost:${server.port}
-  public-key-id: /jwts/publickeys/{keyId}
+auth-server:
+  root: http://localhost:{port}
+  oauth2token:
+    path: /oauth2/token
+    params: ?grant_type=client_credentials

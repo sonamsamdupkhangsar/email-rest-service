@@ -8,6 +8,9 @@ This is a reactive Java webservice api.
 ## Run locally using profile
 Use the following to run local profile which will pick up properties defined in the `application-local.yml` :
 
+```
+gradle bootRun --args="--spring.profiles.active=local"
+```
 
 ```
 mvn spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=local"

@@ -1,9 +1,9 @@
 package me.sonam.email;
 
-import me.sonam.MockConfig;
 import lombok.extern.java.Log;
 import me.sonam.Application;
-import org.junit.Test;
+import me.sonam.MockConfig;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

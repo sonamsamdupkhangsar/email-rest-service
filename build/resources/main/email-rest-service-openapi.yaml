@@ -1,0 +1,62 @@
+openapi: "3.0.2"
+info:
+  title: Email rest service api.
+  version: "1.0"
+
+security:
+  - bearerAuth: []
+
+servers:
+  - url: http://localhost:8085
+    description: local dev server
+
+paths:
+  /emails:
+    post:
+      description: Send email using the request body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+                subject:
+                  type: string
+                body:
+                  type: string
+              example:
+                from: sonam@goole.com
+                to: r@r.com
+                subject: hello, is anybody there
+                body: This is a test
+      responses:
+        '200':
+          description: Email successfully sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Failed to send email
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+

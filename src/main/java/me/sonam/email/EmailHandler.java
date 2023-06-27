@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,6 @@ public class EmailHandler {
     public Mono<ServerResponse> email(ServerRequest serverRequest) {
         LOG.info("send email");
 
-
         return serverRequest.bodyToMono(Email.class)
                 .doOnNext(email -> {LOG.info("email validate"); email.validate();})
                 .doOnNext(email -> {
@@ -40,9 +40,12 @@ public class EmailHandler {
                         email.getSubject(), email.getBody());})
                 .flatMap(email -> {
                     LOG.info("returng success message");
-                 return   ServerResponse.created(URI.create("/emails"))
+                   return serverRequest.principal()
+                            .map(Principal::getName)
+                            .flatMap(username ->
+                    ServerResponse.created(URI.create("/emails"))
                          .contentType(MediaType.APPLICATION_JSON).
-                                 bodyValue(getMap(new Pair("message", "email successfully sent")));
+                                 bodyValue(getMap(new Pair("message", "email successfully sent, " + username))));
                 })
                 .onErrorResume(e -> {
                     LOG.info("failed to send email", e);

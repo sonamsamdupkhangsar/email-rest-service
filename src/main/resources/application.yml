@@ -39,7 +39,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9001
+          issuer-uri: ${ISSUER_URL}
 eureka:
   client:
     serviceUrl:
@@ -57,3 +57,7 @@ auth-server:
   oauth2token:
     path: /oauth2/token
     params: ?grant_type=client_credentials
+
+token:
+  audiences: ${OAUTH_CLIENTS}
+  issuerUri: ${ISSUER_URL}

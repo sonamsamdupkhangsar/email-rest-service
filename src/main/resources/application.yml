@@ -43,7 +43,7 @@ spring:
 
 
 permitpath:
-  - path: /api/health/*
+  - path: /emails/api/health/*
   - path: /emails
     scopes: message.write
 

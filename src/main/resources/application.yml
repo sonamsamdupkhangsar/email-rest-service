@@ -40,10 +40,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${ISSUER_URL}
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${DEFAULT_ZONE}
+
 
 permitpath:
   - path: /api/health/*

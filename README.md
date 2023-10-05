@@ -11,6 +11,7 @@ flowchart TD
  Account[account-rest-service] --"send email after account-created"--> email[email-rest-serivce]
  Account --"send AuthenticationId/logind by email"--> email
  Account --"email activation link"-->email
+ Account --"email secret for password reset" -->email
 ```
 
 ## Run locally

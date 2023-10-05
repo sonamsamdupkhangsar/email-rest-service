@@ -40,20 +40,17 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${ISSUER_URL}
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${DEFAULT_ZONE}
+
 
 permitpath:
-  - path: /api/health/*
+  - path: /emails/api/health/*
   - path: /emails
     scopes: message.write
 
 
 # this is used for getting accesstoken by header filter in jwt-validator (ReactiveRequestContextHolder.class)
 auth-server:
-  root: http://authorization-server/issuer/  #http://localhost:9001
+  root: http://authorization-server/issuer  #http://localhost:9001
   oauth2token:
     path: /oauth2/token
     params: ?grant_type=client_credentials

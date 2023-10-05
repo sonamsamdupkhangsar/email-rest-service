@@ -43,7 +43,7 @@ eureka:
     enabled: false
 
 permitpath:
-  - path: /api/health/*
+  - path: /emails/api/health/*
 
 auth-server:
   root: http://localhost:{port}

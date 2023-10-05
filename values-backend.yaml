@@ -11,7 +11,7 @@ image:
 imagePullSecrets:
   - name: github-regcred
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: "email-rest-service"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -76,12 +76,6 @@ tolerations: []
 affinity: {}
 
 envs:
-  - name: EUREKA_HOST
-    value: discovery-service.sonam.cloud
-  - name: JWT_REST_SERVICE
-    value: lb://jwt-rest-service
-  - name: DEFAULT_ZONE
-    value: https://${EUREKA_USER}:${EUREKA_PASSWORD}@${EUREKA_HOST}/eureka
   - name: ISSUER_URL
     value: https://authorization.sonam.cloud/issuer
   - name: OAUTH_CLIENTS
@@ -89,25 +83,19 @@ envs:
 
 health:
   liveness:
-    path: /api/health/liveness
+    path: /emails/api/health/liveness
     port: 8080
     initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 5
   readiness:
-    path: /api/health/readiness
+    path: /emails/api/health/readiness
     port: 8080
     initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 5
 
 secretFiles:
-  - file: eureka-discovery
-    keys:
-      - key: user
-        name: EUREKA_USER
-      - key: password
-        name: EUREKA_PASSWORD
   - file: email-rest-service
     keys:
       - key: host

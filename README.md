@@ -9,7 +9,8 @@ This uses [token-filter](https://github.com/sonamsamdupkhangsar/token-filter) gr
 ```mermaid
 flowchart TD
  User[user-rest-service] --> createAccount[/create account/] -->Account[account-rest-service]
- createAccount-->Email[/send email/]--> email[email-rest-serivce]
+ Account-->Email[/send email/]--> email[email-rest-serivce]
+ 
  Account[account-rest-service] --"send email after account-created"--> email[email-rest-serivce]
  Account --"send AuthenticationId/logind by email"--> email
  Account --"email activation link"-->email

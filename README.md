@@ -5,7 +5,7 @@ This is a reactive Java webservice api and exposes a Rest api for sending email.
 
 This uses [token-filter](https://github.com/sonamsamdupkhangsar/token-filter) gradle project for creating JwtDecoder with custom IssuerUrl.
 
-## How this service is used?
+## How is this service used?
 ```mermaid
 flowchart TD
  UserService[user-rest-service] --> create[create account] -->Account[account-rest-service]

@@ -11,9 +11,8 @@ flowchart TD
  UserService[user-rest-service] --> create[create account] -->Account[account-rest-service]
  Account-->accountCreated[/Account Created/]--"send email"--> email[email-rest-serivce]
  User[user request] --> emailActivationLink[/Email activation link/]--> email 
-
  User --> emailAuthenticationId[/Email authenticationId/]--> email
- 
+ User -->emailSecret[/Email secret for password reset/] -->email
 ```
 
 ## Run locally

@@ -10,11 +10,9 @@ This uses [token-filter](https://github.com/sonamsamdupkhangsar/token-filter) gr
 flowchart TD
  User[user-rest-service] --> create[create account] -->Account[account-rest-service]
  Account-->accountCreated[/Account Created/]--"send email"--> email[email-rest-serivce]
- 
- Account[account-rest-service] --"send email after account-created"--> email[email-rest-serivce]
- Account --"send AuthenticationId/logind by email"--> email
- Account --"email activation link"-->email
- Account --"email secret for password reset" -->email
+ User[user request] -->emailActivationLink[/Email activation link/]-->email 
+ User --emailAuthenticationId[/Email authenticationId/]--> email
+ User --[/Email secret for password reset/] -->email
 ```
 
 ## Run locally

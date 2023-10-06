@@ -8,7 +8,7 @@ This uses [token-filter](https://github.com/sonamsamdupkhangsar/token-filter) gr
 ## How this service is used?
 ```mermaid
 flowchart TD
- User[user-rest-service] --> create[create account] -->Account[account-rest-service]
+ UserService[user-rest-service] --> create[create account] -->Account[account-rest-service]
  Account-->accountCreated[/Account Created/]--"send email"--> email[email-rest-serivce]
  User[user request] --> emailActivationLink[/Email activation link/]--> email 
 

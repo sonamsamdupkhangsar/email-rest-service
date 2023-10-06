@@ -12,6 +12,8 @@ flowchart TD
  Account-->accountCreated[/Account Created/]--"send email"--> email[email-rest-serivce]
  User[user request] --> emailActivationLink[/Email activation link/]--> email 
 
+ User --> emailAuthenticationId[/Email authenticationId/]--> email
+ 
 ```
 
 ## Run locally

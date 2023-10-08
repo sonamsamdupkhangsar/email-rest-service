@@ -3,6 +3,18 @@
 This is a Email Rest Service api built using Spring WebFlux. 
 This is a reactive Java webservice api and exposes a Rest api for sending email.
 
+This uses [token-filter](https://github.com/sonamsamdupkhangsar/token-filter) gradle project for creating JwtDecoder with custom IssuerUrl.
+
+## How is this service used?
+```mermaid
+flowchart TD
+ UserService[<a href='https://github.com/sonamsamdupkhangsar/user-rest-service'>user-rest-service</a>] --> create[/Create account/] -->Account[account-rest-service]
+ Account-->accountCreated[/Account Created/]--"send email"--> email[email-rest-serivce]
+ User[user request] --> emailActivationLink[/Email activation link/]--> email 
+ User --> emailAuthenticationId[/Email authenticationId/]--> email
+ User -->emailSecret[/Email secret for password reset/] -->email
+```
+
 ## Run locally
 
 ## Run locally using profile
@@ -11,32 +23,16 @@ Use the following to run local profile which will pick up properties defined in 
 ```
 gradle bootRun --args="--spring.profiles.active=local"
 ```
-
-```
-mvn spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=local"
-```
-
-Or you can do something like following too:
-
-`mvn spring-boot:run -Dspring-boot.run.arguments="--EMAIL_HOST=<HOST> \
- --EMAIL_PORT=<PORT> \
- --EMAIL_USERNAME=<USERNAME> \
- --EMAIL_PASSWORD=<PASSWORD>"`
- 
  
 ## Build Docker image
 
 Build docker image using included Dockerfile.
-
-
 `docker build -t imageregistry/email-rest-service:1.0 .` 
 
 ## Push Docker image to repository
-
 `docker push imageregistry/email-rest-service:1.0`
 
 ## Deploy Docker image locally
-
 `docker run -e EMAIL_HOST=<HOST> -e EMAIL_PORT=<PORT> \
  -e EMAIL_USERNAME=<EMAIL> -e EMAIL_PASSWORD=<PASSWORD> \
  --publish 8080:8080 imageregistry/email-rest-service:1.0`
@@ -58,10 +54,3 @@ curl https://email-rest-service.sonam.cloud/email -H "Authorization: Bearer $JWT
 Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
 
 ```helm install emailapi sonam/mychart -f values.yaml --version 0.1.11 --namespace=backend```
-
-### Pact verification
-This will publish a Pact contract for the jwt-rest-service validate method to pactbroker
-`mvn pact:publish`
-`mvn clean install pact:publish`
-
-Consumer pact will be published during docker build instruction.

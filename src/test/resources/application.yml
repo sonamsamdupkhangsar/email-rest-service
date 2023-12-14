@@ -37,7 +37,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://127.0.0.1:9001
+          issuer-uri: http://localhost:9001
+          jwk-set-uri: http://localhost:9000/issuer/.well-known/jwks.json
+          audiences: oauth-client
+
 eureka:
   client:
     enabled: false

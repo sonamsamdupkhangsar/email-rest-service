@@ -8,6 +8,7 @@ plugins {
     id 'maven-publish'
     id 'java'
     id "au.com.dius.pact" version "4.3.10"
+    id "de.undercouch.download" version "5.3.0" //new relic agent download local
 }
 
 group = 'me.sonam'
@@ -103,4 +104,15 @@ pact {
         pactBrokerPassword = System.getenv('pactbrokerpassword')
         //pactDirectory = 'build/pacts'
     }
+}
+
+task downloadNewrelic(type: Download) {
+    mkdir 'newrelic'
+    src 'https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip'
+    dest file('newrelic')
+}
+
+task unzipNewrelic(type: Copy) {
+    from zipTree(file('newrelic/newrelic-java.zip'))
+    into rootDir
 }

@@ -106,3 +106,7 @@ secretFiles:
         name: EMAIL_USERNAME
       - key: password
         name: EMAIL_PASSWORD
+  - file: newrelic-secret
+    keys:
+      - key: newrelic.license_key
+        name: NEW_RELIC_LICENSE_KEY

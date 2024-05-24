@@ -76,10 +76,12 @@ tolerations: []
 affinity: {}
 
 envs:
-  - name: ISSUER_URL
+  - name: ISSUER_URI
     value: https://authorization.sonam.cloud/issuer
-  - name: OAUTH_CLIENTS
+  - name: OAUTH_AUDIENCES
     value: oauth-client
+  - name: NEW_RELIC_ENABLED
+    value: false
 
 health:
   liveness:
@@ -106,3 +108,7 @@ secretFiles:
         name: EMAIL_USERNAME
       - key: password
         name: EMAIL_PASSWORD
+  - file: newrelic-secret
+    keys:
+      - key: newrelic.license_key
+        name: NEW_RELIC_LICENSE_KEY

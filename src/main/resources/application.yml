@@ -1,6 +1,6 @@
 logging:
   level:
-    root: error
+    root: warn
     me:
       sonam: info
 info:
@@ -39,7 +39,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${ISSUER_URL}
+          issuer-uri: ${ISSUER_URI}
+          audiences: ${OAUTH_AUDIENCES}
 
 
 permitpath:
@@ -50,11 +51,7 @@ permitpath:
 
 # this is used for getting accesstoken by header filter in jwt-validator (ReactiveRequestContextHolder.class)
 auth-server:
-  root: http://authorization-server/issuer  #http://localhost:9001
+  root:  http://api-gateway:9001/issuer
   oauth2token:
     path: /oauth2/token
-    params: ?grant_type=client_credentials
-
-token:
-  audiences: ${OAUTH_CLIENTS}
-  issuerUri: ${ISSUER_URL}
+    grantType: client_credentials

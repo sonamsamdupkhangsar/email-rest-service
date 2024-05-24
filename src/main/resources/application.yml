@@ -1,6 +1,6 @@
 logging:
   level:
-    root: error
+    root: warn
     me:
       sonam: info
 info:
@@ -51,7 +51,7 @@ permitpath:
 
 # this is used for getting accesstoken by header filter in jwt-validator (ReactiveRequestContextHolder.class)
 auth-server:
-  root: http://authorization-server/issuer
+  root:  http://api-gateway:9001/issuer
   oauth2token:
     path: /oauth2/token
-    params: ?grant_type=client_credentials
+    grantType: client_credentials

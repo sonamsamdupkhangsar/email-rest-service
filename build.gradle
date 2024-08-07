@@ -14,7 +14,7 @@ plugins {
 group = 'me.sonam'
 version = '1.0'
 description = 'email-rest-service'
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenLocal()
@@ -49,7 +49,11 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
     compileOnly 'org.projectlombok:lombok:1.18.20'
 }
-
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }

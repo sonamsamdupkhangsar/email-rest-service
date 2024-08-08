@@ -36,7 +36,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-client-all:3.0.3'
-    implementation 'me.sonam:token-filter:1.0.2-SNAPSHOT'
+    implementation 'me.sonam:token-filter:1.0.5-SNAPSHOT'
     implementation 'org.springframework.boot:spring-boot-starter-mail:3.0.4'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'io.projectreactor:reactor-test'

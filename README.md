@@ -54,3 +54,4 @@ curl https://email-rest-service.sonam.cloud/email -H "Authorization: Bearer $JWT
 Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
 
 ```helm install emailapi sonam/mychart -f values.yaml --version 0.1.11 --namespace=backend```
+

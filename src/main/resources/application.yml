@@ -40,13 +40,10 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${ISSUER_URI}
-          audiences: ${OAUTH_AUDIENCES}
 
 
 permitpath:
   - path: /emails/api/health/*
-  - path: /emails
-    scopes: message.write
 
 
 # this is used for getting accesstoken by header filter in jwt-validator (ReactiveRequestContextHolder.class)

@@ -67,6 +67,22 @@ public class EmailRestServiceIntegTest {
   }
 
   @Test
+  public void sendEmailWithoutHeader() {
+    LOG.info("sending email");
+    final String authId = "user3";
+    Jwt jwt = jwt(authId);
+    when(this.reactiveJwtDecoder.decode(anyString())).thenReturn(Mono.just(jwt));
+
+
+    client.post().uri("/emails").
+            body(BodyInserters.fromValue(new Email("from@sonam.cloud", "to@sonam.cloud",
+                    "welcome", "This is a welcome message.")))
+            .exchange().expectStatus().isUnauthorized().returnResult(String.class).consumeWith(stringFluxExchangeResult -> {
+              stringFluxExchangeResult.getResponseBody().subscribe(s -> LOG.info("response: {}", s));
+            });
+  }
+
+  @Test
   public void invalidEmailAddress() {
     LOG.info("sending email");
     final String authId = "user3";

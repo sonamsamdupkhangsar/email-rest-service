@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.Map;
 
 /**
@@ -39,12 +38,9 @@ public class EmailHandler {
                         email.getSubject(), email.getBody());})
                 .flatMap(email -> {
                     LOG.info("return success message");
-                   return serverRequest.principal()
-                            .map(Principal::getName)
-                            .flatMap(username ->
-                    ServerResponse.created(URI.create("/emails"))
-                         .contentType(MediaType.APPLICATION_JSON).
-                                 bodyValue(Map.of("message", "email successfully sent, " + username)));
+                    return ServerResponse.created(URI.create("/emails"))
+                                        .contentType(MediaType.APPLICATION_JSON).
+                                        bodyValue(Map.of("message", "email successfully sent" ));
                 })
                 .onErrorResume(e -> {
                     LOG.info("failed to send email", e);

@@ -1,19 +1,21 @@
 package me.sonam.email.config;
 
-import me.sonam.security.headerfilter.ReactiveRequestContextHolder;
+//import me.sonam.security.headerfilter.ReactiveRequestContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.web.reactive.function.client.WebClient;
 
-@Profile("!localdevtest")
-@Configuration
+//@Profile("!localdevtest")
+//@Configuration
 public class WebClientConfig {
     private static final Logger LOG = LoggerFactory.getLogger(WebClientConfig.class);
-   @LoadBalanced
+    @Value("${tokenExpireSeconds:1}")
+    private int tokenExpireSeconds;
+
+ /*  @LoadBalanced
    @Bean
     public WebClient.Builder webClientBuilder() {
         LOG.info("returning load balanced webclient part");
@@ -22,6 +24,7 @@ public class WebClientConfig {
 
     @Bean
     public ReactiveRequestContextHolder reactiveRequestContextHolder() {
-        return new ReactiveRequestContextHolder(webClientBuilder());
+        return new ReactiveRequestContextHolder(webClientBuilder(), tokenExpireSeconds);
     }
+  */
 }

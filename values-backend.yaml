@@ -6,6 +6,8 @@
 replicaCount: 1
 
 image:
+  repository: ghcr.io/sonamsamdupkhangsar/email-rest-service
+  tag: multitenancy
   pullPolicy: Always
 
 imagePullSecrets:
@@ -15,12 +17,25 @@ fullnameOverride: "email-rest-service"
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
+
+rbac:
+  create: true
+  rules:
+    - apiGroups:
+        - ""
+      resources:
+        - services
+        - endpoints
+      verbs:
+        - get
+        - list
+        - watch
 
 podSecurityContext: {}
 # fsGroup: 2000
@@ -44,18 +59,6 @@ istio:
 
 ingress:
   enabled: false
-  ingressClass: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/auth-url: http://jwt-rest-service-mychart.backend.svc.cluster.local:80/validate
-  hosts:
-    - host: email-rest-service.sonam.cloud
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: sonam.cloud
-      hosts:
-        - "*.sonam.cloud"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -78,7 +81,9 @@ affinity: {}
 
 envs:
   - name: ISSUER_URI
-    value: https://authorization.sonam.cloud/issuer
+    value: https://platform.openissuer.com/issuer
+  - name: JWT_SET_URI
+    value: https://platform.openissuer.com/issuer/oauth2/jwks
   - name: OAUTH_AUDIENCES
     value: oauth-client
   - name: NEW_RELIC_ENABLED
@@ -109,7 +114,3 @@ secretFiles:
         name: EMAIL_USERNAME
       - key: password
         name: EMAIL_PASSWORD
-  - file: newrelic-secret
-    keys:
-      - key: newrelic.license_key
-        name: NEW_RELIC_LICENSE_KEY

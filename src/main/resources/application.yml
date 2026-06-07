@@ -39,7 +39,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${ISSUER_URI}
+          jwk-set-uri: ${JWT_SET_URI}
 
 
 permitpath:
@@ -48,7 +48,7 @@ permitpath:
 
 # this is used for getting accesstoken by header filter in jwt-validator (ReactiveRequestContextHolder.class)
 auth-server:
-  root:  http://api-gateway:9001/issuer
+  root:  http://authorization-server
   oauth2token:
     path: /oauth2/token
     grantType: client_credentials

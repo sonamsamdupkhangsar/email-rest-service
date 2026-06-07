@@ -5,8 +5,13 @@ spring:
       enabled: true
       discovery:
         namespaces:
-           - backend
+           - main
         include-not-ready-addresses: true
 eureka:
   client:
       enabled: false
+
+ISSUER_ADDRESS: https://platform.openissuer.com/issuer
+ISSUER_URI: ${ISSUER_ADDRESS}
+JWT_SET_URI: ${ISSUER_ADDRESS}/oauth2/jwks
+NEW_RELIC_ENABLED: false

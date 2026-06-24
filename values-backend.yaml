@@ -86,20 +86,31 @@ envs:
     value: oauth-client
   - name: NEW_RELIC_ENABLED
     value: false
+  - name: AUTH_SERVER_ROOT
+    value: "http://authorization-server.{{ .Release.Namespace }}.svc.cluster.local"
 
 health:
+  startup:
+    path: /emails/api/health/liveness
+    port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
   liveness:
     path: /emails/api/health/liveness
     port: 8080
     initialDelaySeconds: 15
     periodSeconds: 5
     failureThreshold: 5
+    timeoutSeconds: 5
   readiness:
     path: /emails/api/health/readiness
     port: 8080
     initialDelaySeconds: 15
     periodSeconds: 5
     failureThreshold: 5
+    timeoutSeconds: 5
 
 secretFiles:
   - file: email-rest-service

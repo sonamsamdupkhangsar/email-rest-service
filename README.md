@@ -19,10 +19,10 @@ flowchart TD
 ## Run locally
 
 ## Run locally using profile
-Use the following to run local profile which will pick up properties defined in the `application-local.yml` :
+Use the following to run the Eureka profile, which picks up properties defined in `application-eureka.yaml`:
 
 ```
-gradle bootRun --args="--spring.profiles.active=local"
+SPRING_PROFILES_ACTIVE=eureka ./gradlew bootRun
 ```
  
 ## Build Docker image
@@ -55,5 +55,4 @@ curl https://email-rest-service.sonam.cloud/email -H "Authorization: Bearer $JWT
 Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
 
 ```helm install emailapi sonam/mychart -f values.yaml --version 0.1.11 --namespace=backend```
-
 

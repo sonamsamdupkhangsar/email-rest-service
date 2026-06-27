@@ -1,4 +1,4 @@
-# This yaml file is for local dev profile
+# Local Eureka profile: loads local server port, Eureka registry, and issuer endpoints.
 server:
   port: 8085
 

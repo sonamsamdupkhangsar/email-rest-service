@@ -21,7 +21,7 @@ trustOrigin: http://localhost:8080
 
 spring:
   profiles:
-    active: localdevtest
+    active: non-eureka
   mail:
     username: test@sonam.email #just for test to pass
     properties:

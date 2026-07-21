@@ -21,9 +21,23 @@ flowchart TD
 ## Run locally using profile
 Use the following to run the Eureka profile, which picks up properties defined in `application-eureka.yaml`:
 
-```
+```bash
+source ~/.zshrc
 SPRING_PROFILES_ACTIVE=eureka ./gradlew bootRun
 ```
+
+Local SMTP configuration is read from the existing shell environment:
+
+```text
+EMAIL_HOST=box.openissuer.com
+EMAIL_PORT=587
+EMAIL_USERNAME=<OpenIssuer mailbox address>
+EMAIL_PASSWORD=<OpenIssuer mailbox password>
+```
+
+Keep the values in the local shell configuration and do not commit them. `account-rest-service` separately reads
+`EMAIL_FROM_USER`; set it to the same OpenIssuer mailbox address so the message From address matches the authenticated
+SMTP account.
  
 ## Build Docker image
 
@@ -55,4 +69,3 @@ curl https://email-rest-service.sonam.cloud/email -H "Authorization: Bearer $JWT
 Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
 
 ```helm install emailapi sonam/mychart -f values.yaml --version 0.1.11 --namespace=backend```
-

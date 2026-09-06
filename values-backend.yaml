@@ -90,6 +90,8 @@ envs:
     value: false
   - name: AUTH_SERVER_ROOT
     value: "http://authorization-server.{{ .Release.Namespace }}.svc.cluster.local"
+  - name: AUTH_SERVER_CONTEXT_PATH
+    value: "/issuer"
 
 health:
   startup:
